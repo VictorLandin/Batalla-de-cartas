@@ -9,5 +9,5 @@ package Model;
  * @author a22victorlr
  */
 public class Cartas {
-    
+    //esta clase generará el objeto carta y le pondra una imagen, 
 }
