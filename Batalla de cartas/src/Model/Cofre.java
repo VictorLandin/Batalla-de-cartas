@@ -8,6 +8,6 @@ package Model;
  *
  * @author a22victorlr
  */
-public class Varios {
+public class Cofre {
     
 }
