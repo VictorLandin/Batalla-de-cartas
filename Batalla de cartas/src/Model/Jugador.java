@@ -4,10 +4,24 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author a22victorlr
  */
-public class Jugador {
+public class Jugador extends Personajes {
+
+    public Jugador(int vida, ArrayList<Cartas> mazo, int energia, int regeneracionEnergia) {
+        super(vida, mazo, energia, regeneracionEnergia);
+    }
     
+    
+    public void meterCartaEnMazo(Cartas carta) {
+        mazo.add(carta);
+    }
+    
+    public void quitarCartaDeMazo(Cartas carta) {
+        mazo.remove(carta);
+    }
 }
