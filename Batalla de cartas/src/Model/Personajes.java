@@ -8,6 +8,8 @@ package Model;
  *
  * @author a22victorlr
  */
-public class Personajes {
+public abstract class Personajes {
+    public int vida, energia, regeneracionEnergia;
+    private String imagen;
     
 }
