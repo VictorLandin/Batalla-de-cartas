@@ -4,10 +4,23 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author a22victorlr
  */
-public class Enemigos {
+public class Enemigos extends Personajes{
     
+    private String nombre;
+    public Enemigos(int vida, ArrayList<Cartas> mazo, int energia, int regeneracionEnergia) {
+        super(vida, mazo, energia, regeneracionEnergia);
+    }
+    
+    // Métodos adicionales
+    public String getNombre() {
+        return nombre;
+    }
+}
+
 }
