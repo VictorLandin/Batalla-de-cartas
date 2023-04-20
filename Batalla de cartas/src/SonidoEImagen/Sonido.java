@@ -13,6 +13,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+
 /**
  *
  * @author a22victorlr
@@ -20,6 +21,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Sonido {
     private final String carpetaSonidos = "sonido/";
     private final String extensionSonidos = ".wav";
+    
+    private Clip backgroundMusic;
+    private Clip battleMusic;
 
     /**
      * constructor
@@ -41,5 +45,46 @@ public class Sonido {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             ExceptionLogger.logException(e);
         }
+    }
+    
+    public void playMusic() {
+        try {
+            // Cargar la música de fondo
+            backgroundMusic = AudioSystem.getClip();
+            backgroundMusic.open(AudioSystem.getAudioInputStream(new File("background_music.wav")));
+
+            // Cargar la música de batalla
+            battleMusic = AudioSystem.getClip();
+            battleMusic.open(AudioSystem.getAudioInputStream(new File("battle_music.wav")));
+
+            // Reproducir la música de fondo en un hilo separado
+            Thread backgroundMusicThread = new Thread(() -> {
+                backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+            });
+            backgroundMusicThread.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            ExceptionLogger.logException(e);
+        }
+    }
+
+    public void startBattleMusic() {
+        // Detener la música de fondo
+        backgroundMusic.stop();
+        
+        // Reproducir la música de batalla en un hilo separado
+        Thread battleMusicThread = new Thread(() -> {
+            battleMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        });
+        battleMusicThread.start();
+    }
+
+    public void stopBattleMusic() {
+        battleMusic.stop();
+        battleMusic.flush();
+        
+        Thread backgroundMusicThread = new Thread(() -> {
+            backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        });
+        backgroundMusicThread.start();
     }
 }
