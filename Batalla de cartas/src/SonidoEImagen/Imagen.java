@@ -4,6 +4,9 @@
  */
 package SonidoEImagen;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author a22victorlr
@@ -18,6 +21,12 @@ public class Imagen {
   public static String getImageLink(String nombreImagen) {
     String direccion = "src/imagen/" + nombreImagen + extension; // la imagen debe estar en la carpeta "images" del proyecto
     return direccion;
+  }
+  
+  public static ImageIcon redimensionarimagen(ImageIcon imagen, int tamX, int tamY){
+      Image imagenRedimensionada = imagen.getImage().getScaledInstance(tamX, tamY, Image.SCALE_DEFAULT);
+      ImageIcon imagenNueva = new ImageIcon(imagenRedimensionada);
+         return imagenNueva;
   }
   /* Para añadir una imagen a un objeto se haría asi
   

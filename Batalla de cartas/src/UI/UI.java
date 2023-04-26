@@ -4,8 +4,11 @@
  */
 package UI;
 
+import SonidoEImagen.Imagen;
+import javax.swing.ImageIcon;
+
 /**
- *
+ 
  * @author a22victorlr
  */
 public class UI extends javax.swing.JFrame {
@@ -15,8 +18,27 @@ public class UI extends javax.swing.JFrame {
      */
     public UI() {
         initComponents();
+        
+        colocarImagenes();
     }
-
+    
+    
+private void colocarImagenes(){
+    String menuDirec = SonidoEImagen.Imagen.getImageLink("Menu");
+    ImageIcon menu = new ImageIcon(menuDirec);
+    ImageIcon menuRedimen = Imagen.redimensionarimagen(menu, menuLabel.getWidth(), menuLabel.getHeight());
+    this.menuLabel.setIcon(menuRedimen);
+    /*
+    String batallaDirec = SonidoEImagen.Imagen.getImageLink("Batalla");
+    ImageIcon batalla = new ImageIcon(batallaDirec);
+    ImageIcon batallaRedimen = Imagen.redimensionarimagen(batalla, menuLabel.getWidth(), menuLabel.getHeight());
+    this.menuLabel.setIcon(batallaRedimen);
+    
+    String mapaDirec = SonidoEImagen.Imagen.getImageLink("Mapa");
+    ImageIcon mapa = new ImageIcon(mapaDirec);
+    ImageIcon mapaRedimen = Imagen.redimensionarimagen(mapa, menuLabel.getWidth(), menuLabel.getHeight());
+    this.menuLabel.setIcon(mapaRedimen);*/
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +51,8 @@ public class UI extends javax.swing.JFrame {
         batallaPanel = new javax.swing.JPanel();
         mapaPanel = new javax.swing.JPanel();
         menuPanel = new javax.swing.JPanel();
+        menuLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -37,49 +61,25 @@ public class UI extends javax.swing.JFrame {
 
         batallaPanel.setBackground(new java.awt.Color(0, 63, 65));
         batallaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
-
-        javax.swing.GroupLayout batallaPanelLayout = new javax.swing.GroupLayout(batallaPanel);
-        batallaPanel.setLayout(batallaPanelLayout);
-        batallaPanelLayout.setHorizontalGroup(
-            batallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        batallaPanelLayout.setVerticalGroup(
-            batallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-
+        batallaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(batallaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, -1, -1));
 
         mapaPanel.setBackground(new java.awt.Color(60, 63, 5));
         mapaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
-
-        javax.swing.GroupLayout mapaPanelLayout = new javax.swing.GroupLayout(mapaPanel);
-        mapaPanel.setLayout(mapaPanelLayout);
-        mapaPanelLayout.setHorizontalGroup(
-            mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        mapaPanelLayout.setVerticalGroup(
-            mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-
+        mapaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(mapaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
 
         menuPanel.setBackground(new java.awt.Color(60, 3, 65));
         menuPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+        menuPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        menuPanel.add(menuLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+        String menuDirec = SonidoEImagen.Imagen.getImageLink("Menu");
+        ImageIcon menu = new ImageIcon(menuDirec);
+        ImageIcon menuRedimen = Imagen.redimensionarimagen(menu, this.getWidth(), this.getHeight());
+        this.menuLabel.setIcon(menuRedimen);
 
-        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
-        menuPanel.setLayout(menuPanelLayout);
-        menuPanelLayout.setHorizontalGroup(
-            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        menuPanelLayout.setVerticalGroup(
-            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
+        jButton1.setText("jButton1");
+        menuPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, -1, -1));
 
         getContentPane().add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -123,7 +123,9 @@ public class UI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel batallaPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel mapaPanel;
+    private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
     // End of variables declaration//GEN-END:variables
 }
