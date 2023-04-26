@@ -26,18 +26,62 @@ public class UI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        batallaPanel = new javax.swing.JPanel();
+        mapaPanel = new javax.swing.JPanel();
+        menuPanel = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        batallaPanel.setBackground(new java.awt.Color(0, 63, 65));
+        batallaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        javax.swing.GroupLayout batallaPanelLayout = new javax.swing.GroupLayout(batallaPanel);
+        batallaPanel.setLayout(batallaPanelLayout);
+        batallaPanelLayout.setHorizontalGroup(
+            batallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        batallaPanelLayout.setVerticalGroup(
+            batallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
+
+        getContentPane().add(batallaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, -1, -1));
+
+        mapaPanel.setBackground(new java.awt.Color(60, 63, 5));
+        mapaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        javax.swing.GroupLayout mapaPanelLayout = new javax.swing.GroupLayout(mapaPanel);
+        mapaPanel.setLayout(mapaPanelLayout);
+        mapaPanelLayout.setHorizontalGroup(
+            mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        mapaPanelLayout.setVerticalGroup(
+            mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(mapaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
+
+        menuPanel.setBackground(new java.awt.Color(60, 3, 65));
+        menuPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,5 +122,8 @@ public class UI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel batallaPanel;
+    private javax.swing.JPanel mapaPanel;
+    private javax.swing.JPanel menuPanel;
     // End of variables declaration//GEN-END:variables
 }

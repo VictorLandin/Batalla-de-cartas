@@ -19,7 +19,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author a22victorlr
  */
 public class Sonido {
-    private final String carpetaSonidos = "sonido/";
+    private final String carpetaSonidos = "src/sonido/";
     private final String extensionSonidos = ".wav";
     
     private Clip backgroundMusic;
@@ -56,11 +56,11 @@ public class Sonido {
         try {
             // Cargar la música de fondo
             backgroundMusic = AudioSystem.getClip();
-            backgroundMusic.open(AudioSystem.getAudioInputStream(new File("background_music.wav")));
+            backgroundMusic.open(AudioSystem.getAudioInputStream(new File("src/onido/background_music.wav")));
 
             // Cargar la música de batalla
             battleMusic = AudioSystem.getClip();
-            battleMusic.open(AudioSystem.getAudioInputStream(new File("battle_music.wav")));
+            battleMusic.open(AudioSystem.getAudioInputStream(new File("src/onido/battle_music.wav")));
 
             // Reproducir la música de fondo en un hilo separado
             Thread backgroundMusicThread = new Thread(() -> {
