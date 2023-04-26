@@ -26,7 +26,8 @@ public class Sonido {
     private Clip battleMusic;
 
     /**
-     * constructor
+     * constructor 
+     * (no utilizado)
      */
     public Sonido() {
     }
@@ -34,6 +35,7 @@ public class Sonido {
     /**
      *
      * @param soundName
+     * trae el nombre del sonido y lo hace sonar
      */
     public void playSound(String soundName) {
         try {
@@ -47,6 +49,9 @@ public class Sonido {
         }
     }
     
+    /**
+     * hace que funciona la musica de fondo
+     */
     public void playMusic() {
         try {
             // Cargar la música de fondo
@@ -67,6 +72,9 @@ public class Sonido {
         }
     }
 
+    /**
+     *
+     */
     public void startBattleMusic() {
         // Detener la música de fondo
         backgroundMusic.stop();
@@ -78,6 +86,9 @@ public class Sonido {
         battleMusicThread.start();
     }
 
+    /**
+     *
+     */
     public void stopBattleMusic() {
         battleMusic.stop();
         battleMusic.flush();

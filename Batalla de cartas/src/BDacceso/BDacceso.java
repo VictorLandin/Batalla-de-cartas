@@ -15,6 +15,12 @@ import java.sql.Statement;
  * @author a22victorlr
  */
 public class BDacceso {
+
+    /**
+     *
+     * @param id
+     * @param nombre
+     */
     public void acceder(int id, String nombre){
     try {
             
@@ -24,7 +30,7 @@ public class BDacceso {
 
             Connection mysqlCon = DriverManager.getConnection(mysqlUrl, usuario, clave);
             Statement stmt = mysqlCon.createStatement(); 
-            ResultSet rs = stmt.executeQuery("SELECT * from " + nombre +);
+            ResultSet rs = stmt.executeQuery("SELECT * from " + nombre + "");
             
             while (rs.next()) {
                 System.out.println("Nombre: " + rs.getString("NOMBRE"));

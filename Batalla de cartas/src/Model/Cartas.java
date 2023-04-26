@@ -12,26 +12,50 @@ public class Cartas {
     private int ID_carta, ataque, defensa, coste;
     private String Efecto, imagen;
 
+    /**
+     *
+     * @return
+     */
     public int getID_carta() {
         return ID_carta;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAtaque() {
         return ataque;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDefensa() {
         return defensa;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCoste() {
         return coste;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEfecto() {
         return Efecto;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImagen() {
         return imagen;
     }

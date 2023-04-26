@@ -12,10 +12,21 @@ import java.util.ArrayList;
  */
 public class Personajes {
     private int vida;
+
+    /**
+     *
+     */
     protected ArrayList<Cartas> mazo;
     private int energia;
     private int regeneracionEnergia;
     
+    /**
+     *
+     * @param vida
+     * @param mazo
+     * @param energia
+     * @param regeneracionEnergia
+     */
     public Personajes(int vida, ArrayList<Cartas> mazo, int energia, int regeneracionEnergia) {
         this.vida = vida;
         this.mazo = mazo;
@@ -24,22 +35,42 @@ public class Personajes {
     }
     
     // Métodos para manipular los atributos
+
+    /**
+     *
+     * @param cantidad
+     */
     public void reducirVida(int cantidad) {
         vida -= cantidad;
     }
     
+    /**
+     *
+     * @param cantidad
+     */
     public void aumentarVida(int cantidad) {
         vida += cantidad;
     }
     
+    /**
+     *
+     * @param cantidad
+     */
     public void aumentarEnergia(int cantidad) {
         energia += cantidad;
     }
     
+    /**
+     *
+     * @param cantidad
+     */
     public void reducirEnergia(int cantidad) {
         energia -= cantidad;
     }
     
+    /**
+     *
+     */
     public void regenerarEnergia() {
         energia += regeneracionEnergia;
     }
