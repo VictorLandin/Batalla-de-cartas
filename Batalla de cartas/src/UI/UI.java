@@ -24,20 +24,31 @@ public class UI extends javax.swing.JFrame {
     
     
 private void colocarImagenes(){
+    //Strings de dirección
     String menuDirec = SonidoEImagen.Imagen.getImageLink("Menu");
+    String evtDirec = SonidoEImagen.Imagen.getImageLink("Evento");
+    String batallaDirec = SonidoEImagen.Imagen.getImageLink("Batalla");
+    String mapaDirec = SonidoEImagen.Imagen.getImageLink("Mapa");
+    String inicDirec = SonidoEImagen.Imagen.getImageLink("Inicio");
+    
+    
     ImageIcon menu = new ImageIcon(menuDirec);
     ImageIcon menuRedimen = Imagen.redimensionarimagen(menu, menuLabel.getWidth(), menuLabel.getHeight());
     this.menuLabel.setIcon(menuRedimen);
-    /*
-    String batallaDirec = SonidoEImagen.Imagen.getImageLink("Batalla");
-    ImageIcon batalla = new ImageIcon(batallaDirec);
-    ImageIcon batallaRedimen = Imagen.redimensionarimagen(batalla, menuLabel.getWidth(), menuLabel.getHeight());
-    this.menuLabel.setIcon(batallaRedimen);
     
-    String mapaDirec = SonidoEImagen.Imagen.getImageLink("Mapa");
+    ImageIcon batalla = new ImageIcon(batallaDirec);
+    ImageIcon batallaRedimen = Imagen.redimensionarimagen(batalla, batallaLabel.getWidth(), batallaLabel.getHeight());
+    this.batallaLabel.setIcon(batallaRedimen);
+    
     ImageIcon mapa = new ImageIcon(mapaDirec);
-    ImageIcon mapaRedimen = Imagen.redimensionarimagen(mapa, menuLabel.getWidth(), menuLabel.getHeight());
-    this.menuLabel.setIcon(mapaRedimen);*/
+    ImageIcon mapaRedimen = Imagen.redimensionarimagen(mapa, mapaLabel.getWidth(), mapaLabel.getHeight());
+    this.mapaLabel.setIcon(mapaRedimen);
+    
+    ImageIcon inic = new ImageIcon(inicDirec);
+    ImageIcon inicRedimen = Imagen.redimensionarimagen(inic, Iniciar.getWidth(), Iniciar.getHeight());
+    this.Iniciar.setIcon(inicRedimen);
+    
+    
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,10 +60,12 @@ private void colocarImagenes(){
     private void initComponents() {
 
         batallaPanel = new javax.swing.JPanel();
+        batallaLabel = new javax.swing.JLabel();
         mapaPanel = new javax.swing.JPanel();
+        mapaLabel = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel();
+        Iniciar = new javax.swing.JButton();
         menuLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -62,29 +75,39 @@ private void colocarImagenes(){
         batallaPanel.setBackground(new java.awt.Color(0, 63, 65));
         batallaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
         batallaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        batallaPanel.add(batallaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+
         getContentPane().add(batallaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, -1, -1));
 
         mapaPanel.setBackground(new java.awt.Color(60, 63, 5));
         mapaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
         mapaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        mapaPanel.add(mapaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+
         getContentPane().add(mapaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, -1, -1));
 
         menuPanel.setBackground(new java.awt.Color(60, 3, 65));
         menuPanel.setPreferredSize(new java.awt.Dimension(800, 600));
         menuPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        menuPanel.add(menuLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
-        String menuDirec = SonidoEImagen.Imagen.getImageLink("Menu");
-        ImageIcon menu = new ImageIcon(menuDirec);
-        ImageIcon menuRedimen = Imagen.redimensionarimagen(menu, this.getWidth(), this.getHeight());
-        this.menuLabel.setIcon(menuRedimen);
 
-        jButton1.setText("jButton1");
-        menuPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 210, -1, -1));
+        Iniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IniciarActionPerformed(evt);
+            }
+        });
+        menuPanel.add(Iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 192, 56));
+        menuPanel.add(menuLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         getContentPane().add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
+        // TODO add your handling code here:
+        menuPanel.setLocation(800, 0);
+        mapaPanel.setLocation(0, 0);
+    }//GEN-LAST:event_IniciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,8 +145,10 @@ private void colocarImagenes(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Iniciar;
+    private javax.swing.JLabel batallaLabel;
     private javax.swing.JPanel batallaPanel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel mapaLabel;
     private javax.swing.JPanel mapaPanel;
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
