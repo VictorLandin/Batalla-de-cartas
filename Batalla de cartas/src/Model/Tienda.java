@@ -9,5 +9,13 @@ package Model;
  * @author a22victorlr
  */
 public class Tienda {
+
+    int getPrecio(Cartas carta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    void quitarCartaDelInventario(Cartas carta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

@@ -11,7 +11,11 @@ import java.util.ArrayList;
  * @author a22victorlr
  */
 public class Jugador extends Personajes {
-
+    
+    protected ArrayList<Cartas> mazo;
+    private int energia;
+    private int regeneracionEnergia;
+    private int vida;
     /**
      *
      * @param vida
@@ -21,6 +25,7 @@ public class Jugador extends Personajes {
      */
     public Jugador(int vida, ArrayList<Cartas> mazo, int energia, int regeneracionEnergia) {
         super(vida, mazo, energia, regeneracionEnergia);
+        
     }
     
     /**
@@ -37,5 +42,13 @@ public class Jugador extends Personajes {
      */
     public void quitarCartaDeMazo(Cartas carta) {
         mazo.remove(carta);
+    }
+
+    ArrayList<Cartas> getMazo() {
+        return mazo;
+    }
+
+    void agregarCartaAlMazo(Cartas carta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

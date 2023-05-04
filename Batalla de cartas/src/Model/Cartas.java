@@ -4,13 +4,23 @@
  */
 package Model;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author a22victorlr
  */
 public class Cartas {
-    private int ID_carta, ataque, defensa, coste;
+    private int ID_carta, ataque, defensa, coste, repeticiones;
     private String Efecto, imagen;
+
+    public Cartas(int idCarta, int ataque, int defensa, int repeticiones, String objetivoString, String imagen) {
+        JLabel carta = new JLabel();
+        this.ID_carta = idCarta;
+        this.ataque = ataque;
+        this.defensa = defensa;
+        
+    }
 
     /**
      *
