@@ -5,9 +5,7 @@
 package Model;
 
 import BDacceso.*;
-import java.awt.GridLayout;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -28,17 +26,32 @@ public class Juego {
     }
 
     public void mostrarMazo(JPanel panelMazo) {
-        ArrayList<Cartas> mazo = jugador.getMazo();
-        int filas = (int) Math.ceil(mazo.size() / 5.0); // calcula el número de filas necesarias
-        panelMazo.setLayout(new GridLayout(filas, 5)); // establece el layout en forma de rejilla
-        for (Cartas carta : mazo) {
-            ImageIcon imagenCarta = new ImageIcon(carta.getImagen());
-            JLabel labelCarta = new JLabel(imagenCarta);
-            panelMazo.add(labelCarta); // añade el label al panel del mazo
+    ArrayList<Cartas> mazo = jugador.getMazo();
+    
+    int columnas = 5;
+    int x = 10; // Posición inicial x
+    int y = 10; // Posición inicial y
+    
+    for (int i = 0; i < mazo.size(); i++) {
+        Cartas carta = mazo.get(i);
+        JLabel labelCarta = carta.getCarta();
+        
+        // Establece la posición (x, y) del JLabel
+        labelCarta.setLocation(x, y);
+        labelCarta.setSize(100, 180);
+        panelMazo.add(labelCarta); // Añade el label al panel del mazo
+        
+        carta.refrescar();
+        panelMazo.setComponentZOrder(labelCarta, 0);
+        // Calcula la posición (x, y) del siguiente JLabel
+        x += labelCarta.getWidth()+ 10; // Añade 10 píxeles de separación horizontal
+        if ((i + 1) % columnas == 0) {
+            x = 10; // Reinicia la posición x al inicio de la fila
+            y += labelCarta.getHeight() + 10; // Añade 10 píxeles de separación vertical
         }
-        panelMazo.revalidate(); // revalida el panel para que se muestren los cambios
-        panelMazo.repaint(); // repinta el panel para que se muestren los cambios
     }
+}
+
 
     public void iniciarBatalla(Enemigos enemigo) {
         // cambiar la situación del juego a "batalla"
@@ -63,11 +76,11 @@ public class Juego {
         int regeneracionEnergiaJugador = bdAcceso.obtenerRegeneracionEnergiaJugador(idJugador); // obtiene la regeneración de energía del jugador de la tabla de jugadores
 
         // crea el objeto de la clase Jugador con las propiedades obtenidas
-        jugador = new Jugador(vidaJugador, cartasJugador, energiaJugador, regeneracionEnergiaJugador);
-
+        Jugador player = new Jugador(vidaJugador, cartasJugador, energiaJugador, regeneracionEnergiaJugador);
+        this.jugador = player;
     }
 
     private void restarDinero(int precio) {
-        
+
     }
 }

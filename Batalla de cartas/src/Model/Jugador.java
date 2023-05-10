@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public class Jugador extends Personajes {
     
-    protected ArrayList<Cartas> mazo;
     private int energia;
     private int regeneracionEnergia;
     private int vida;
@@ -25,7 +24,10 @@ public class Jugador extends Personajes {
      */
     public Jugador(int vida, ArrayList<Cartas> mazo, int energia, int regeneracionEnergia) {
         super(vida, mazo, energia, regeneracionEnergia);
-        
+        this.energia = energia;
+        this.mazo = mazo;
+        this.regeneracionEnergia = regeneracionEnergia;
+        this.vida = vida;
     }
     
     /**

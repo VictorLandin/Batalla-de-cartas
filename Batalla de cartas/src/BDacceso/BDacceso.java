@@ -35,7 +35,7 @@ public class BDacceso {
     public ArrayList<Cartas> obtenerCartasJugador(int idJugador) {
         ArrayList<Cartas> cartasJugador = new ArrayList<>();
         try {
-            PreparedStatement ps = conexion.prepareStatement("SELECT * FROM carta INNER JOIN jugador_carta ON jugador_carta.carta_idcarta = carta.idCarta WHERE jugador_carta.jugador_idjugador = ?");
+            PreparedStatement ps = conexion.prepareStatement("SELECT * FROM carta INNER JOIN mazo ON mazo.carta_idcarta = carta.idCarta WHERE mazo.personaje_idPersonaje = ?");
             ps.setInt(1, idJugador);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
