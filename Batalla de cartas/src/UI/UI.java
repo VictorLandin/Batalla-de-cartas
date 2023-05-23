@@ -205,7 +205,7 @@ public class UI extends javax.swing.JFrame {
                 minute++;
                 sec = 0;
             }
-            timerP.setText(text);
+            timerP.setText(minute+"m"+sec+"s");
         });
     }//GEN-LAST:event_IniciarActionPerformed
 
