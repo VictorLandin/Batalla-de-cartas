@@ -6,62 +6,73 @@ package UI;
 
 import Model.*;
 import SonidoEImagen.Imagen;
-import java.awt.Color;
+import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- 
+ *
  * @author a22victorlr
  */
 public class UI extends javax.swing.JFrame {
-    private Juego partida = new Juego();
+
+    public void pintarEn(JLabel label) {
+        mapaPanel.add(label);
+        mapaPanel.setComponentZOrder(label, 1);
+        label.setOpaque(true);
+        
+        mapaPanel.repaint();
+    }
+
+    private Juego partida;
+    UI interfaz;
+
     /**
      * Creates new form UI
      */
     public UI() {
+        interfaz = this;
         initComponents();
-        
+        partida = new Juego(this);
         colocarImagenes();
         mapaPanel.setVisible(false);
         batallaPanel.setVisible(false);
         eventoPanel.setVisible(false);
-        
+        Iniciar.setVisible(true);
+        Iniciar.repaint();
     }
-    
-    
-private void colocarImagenes(){
-    //Strings de dirección
-    String menuDirec = SonidoEImagen.Imagen.getImageLink("Menu");
-    String evtDirec = SonidoEImagen.Imagen.getImageLink("Evento");
-    String batallaDirec = SonidoEImagen.Imagen.getImageLink("Batalla");
-    String mapaDirec = SonidoEImagen.Imagen.getImageLink("Mapa");
-    String inicDirec = SonidoEImagen.Imagen.getImageLink("Inicio");
-    
-    
-    ImageIcon menu = new ImageIcon(menuDirec);
-    ImageIcon menuRedimen = Imagen.redimensionarimagen(menu, menuLabel.getWidth(), menuLabel.getHeight());
-    this.menuLabel.setIcon(menuRedimen);
-    
-    ImageIcon evento = new ImageIcon(evtDirec);
-    ImageIcon eventoRedimen = Imagen.redimensionarimagen(evento, eventoLabel.getWidth(), eventoLabel.getHeight());
-    this.eventoLabel.setIcon(eventoRedimen);
-    
-    ImageIcon batalla = new ImageIcon(batallaDirec);
-    ImageIcon batallaRedimen = Imagen.redimensionarimagen(batalla, batallaLabel.getWidth(), batallaLabel.getHeight());
-    this.batallaLabel.setIcon(batallaRedimen);
-    
-    ImageIcon mapa = new ImageIcon(mapaDirec);
-    ImageIcon mapaRedimen = Imagen.redimensionarimagen(mapa, mapaLabel.getWidth(), mapaLabel.getHeight());
-    this.mapaLabel.setIcon(mapaRedimen);
-    
-    ImageIcon inic = new ImageIcon(inicDirec);
-    ImageIcon inicRedimen = Imagen.redimensionarimagen(inic, Iniciar.getWidth(), Iniciar.getHeight());
-    this.Iniciar.setIcon(inicRedimen);
-    
-    
-}
+
+    private void colocarImagenes() {
+        //Strings de dirección
+        String menuDirec = SonidoEImagen.Imagen.getImageLink("Menu");
+        String evtDirec = SonidoEImagen.Imagen.getImageLink("Evento");
+        String batallaDirec = SonidoEImagen.Imagen.getImageLink("Batalla");
+        String mapaDirec = SonidoEImagen.Imagen.getImageLink("Mapa");
+        String inicDirec = SonidoEImagen.Imagen.getImageLink("Inicio");
+
+        ImageIcon menu = new ImageIcon(menuDirec);
+        ImageIcon menuRedimen = Imagen.redimensionarimagen(menu, menuLabel.getWidth(), menuLabel.getHeight());
+        this.menuLabel.setIcon(menuRedimen);
+
+        ImageIcon evento = new ImageIcon(evtDirec);
+        ImageIcon eventoRedimen = Imagen.redimensionarimagen(evento, eventoLabel.getWidth(), eventoLabel.getHeight());
+        this.eventoLabel.setIcon(eventoRedimen);
+
+        ImageIcon batalla = new ImageIcon(batallaDirec);
+        ImageIcon batallaRedimen = Imagen.redimensionarimagen(batalla, batallaLabel.getWidth(), batallaLabel.getHeight());
+        this.batallaLabel.setIcon(batallaRedimen);
+
+        ImageIcon mapa = new ImageIcon(mapaDirec);
+        ImageIcon mapaRedimen = Imagen.redimensionarimagen(mapa, mapaLabel.getWidth(), mapaLabel.getHeight());
+        this.mapaLabel.setIcon(mapaRedimen);
+
+        ImageIcon inic = new ImageIcon(inicDirec);
+        ImageIcon inicRedimen = Imagen.redimensionarimagen(inic, Iniciar.getWidth(), Iniciar.getHeight());
+        this.Iniciar.setIcon(inicRedimen);
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,67 +82,96 @@ private void colocarImagenes(){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        eventoPanel = new javax.swing.JPanel();
-        mazoPanel = new javax.swing.JPanel();
-        eventoLabel = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel();
         Iniciar = new javax.swing.JButton();
         menuLabel = new javax.swing.JLabel();
+        mapaPanel = new javax.swing.JPanel();
+        mapaLabel = new javax.swing.JLabel();
+        eventoPanel = new javax.swing.JPanel();
+        eventoLabel = new javax.swing.JLabel();
         batallaPanel = new javax.swing.JPanel();
         batallaLabel = new javax.swing.JLabel();
-        mapaPanel = new javax.swing.JPanel();
-        Mazo = new javax.swing.JButton();
-        mapaLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(816, 639));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        eventoPanel.setBackground(new java.awt.Color(0, 3, 5));
-        eventoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        mazoPanel.setOpaque(false);
-        eventoPanel.add(mazoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
-        eventoPanel.add(eventoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
-
-        getContentPane().add(eventoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         menuPanel.setBackground(new java.awt.Color(60, 3, 65));
         menuPanel.setPreferredSize(new java.awt.Dimension(800, 600));
-        menuPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Iniciar.setOpaque(true);
         Iniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IniciarActionPerformed(evt);
             }
         });
-        menuPanel.add(Iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 192, 56));
-        menuPanel.add(menuLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+
+        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addGap(300, 300, 300)
+                .addComponent(Iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(Iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         getContentPane().add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        batallaPanel.setBackground(new java.awt.Color(0, 63, 65));
-        batallaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
-        batallaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        batallaPanel.add(batallaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
-
-        getContentPane().add(batallaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         mapaPanel.setBackground(new java.awt.Color(60, 63, 5));
         mapaPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         mapaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
-        mapaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Mazo.setText("jButton1");
-        Mazo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MazoActionPerformed(evt);
-            }
-        });
-        mapaPanel.add(Mazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 520, -1, -1));
-        mapaPanel.add(mapaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+        javax.swing.GroupLayout mapaPanelLayout = new javax.swing.GroupLayout(mapaPanel);
+        mapaPanel.setLayout(mapaPanelLayout);
+        mapaPanelLayout.setHorizontalGroup(
+            mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mapaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        mapaPanelLayout.setVerticalGroup(
+            mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mapaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         getContentPane().add(mapaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        eventoPanel.setBackground(new java.awt.Color(0, 3, 5));
+
+        javax.swing.GroupLayout eventoPanelLayout = new javax.swing.GroupLayout(eventoPanel);
+        eventoPanel.setLayout(eventoPanelLayout);
+        eventoPanelLayout.setHorizontalGroup(
+            eventoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(eventoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        eventoPanelLayout.setVerticalGroup(
+            eventoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(eventoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        getContentPane().add(eventoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        batallaPanel.setBackground(new java.awt.Color(0, 63, 65));
+        batallaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        javax.swing.GroupLayout batallaPanelLayout = new javax.swing.GroupLayout(batallaPanel);
+        batallaPanel.setLayout(batallaPanelLayout);
+        batallaPanelLayout.setHorizontalGroup(
+            batallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(batallaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        batallaPanelLayout.setVerticalGroup(
+            batallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(batallaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        getContentPane().add(batallaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -140,21 +180,10 @@ private void colocarImagenes(){
         // TODO add your handling code here:
         menuPanel.setVisible(false);
         mapaPanel.setVisible(true);
+        partida.empezar(mapaPanel);
     }//GEN-LAST:event_IniciarActionPerformed
 
-    private void MazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MazoActionPerformed
-        // TODO add your handling code here:
-        mapaPanel.setVisible(false);
-        eventoPanel.setVisible(true);
-        mazoPanel.setOpaque(true);
-        mazoPanel.setBackground(new Color(0,0,0,100));
-        eventoPanel.setComponentZOrder(mazoPanel, 0);
-        partida.mostrarMazo(mazoPanel);
-        
-    }//GEN-LAST:event_MazoActionPerformed
 
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -228,14 +257,12 @@ private void colocarImagenes(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Iniciar;
-    private javax.swing.JButton Mazo;
     private javax.swing.JLabel batallaLabel;
     private javax.swing.JPanel batallaPanel;
     private javax.swing.JLabel eventoLabel;
     private javax.swing.JPanel eventoPanel;
     private javax.swing.JLabel mapaLabel;
     private javax.swing.JPanel mapaPanel;
-    private javax.swing.JPanel mazoPanel;
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
     // End of variables declaration//GEN-END:variables

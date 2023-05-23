@@ -5,6 +5,8 @@
 package Model;
 
 import SonidoEImagen.Imagen;
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -17,6 +19,7 @@ public class Cartas {
     private int ID_carta, ataque, defensa, coste, repeticiones;
     private String Efecto, imagen, objetivo;
     JLabel carta;
+    ImageIcon imRedimensionada;
 
     public Cartas(int idCarta, int ataque, int defensa, int repeticiones, String objetivoString, String imagen) {
         carta = new JLabel();
@@ -28,15 +31,20 @@ public class Cartas {
         this.Efecto = null;
         this.imagen = imagen;
         carta.setSize(100, 180);
+        Dimension dimension = new Dimension();
+        dimension.height = 180;
+        dimension.width = 100;
+        carta.setMinimumSize(dimension);
         ImageIcon im = new ImageIcon(imagen);
-        ImageIcon imRedimensionada = Imagen.redimensionarimagen(im, carta.getWidth(), carta.getHeight());
-        carta.setIcon(imRedimensionada);
+        imRedimensionada = Imagen.redimensionarimagen(im, carta.getWidth(), carta.getHeight());
         carta.setOpaque(true);
+        carta.setIcon(imRedimensionada);
         carta.setVisible(true);
-        
+        carta.setText("  ");
     }
 
     public int getRepeticiones() {
+        
         return repeticiones;
     }
 
@@ -51,8 +59,13 @@ public class Cartas {
     public void refrescar(){
         this.carta.setOpaque(true);
         this.carta.setVisible(true);
+        Dimension dimension = new Dimension();
+        dimension.height = 180;
+        dimension.width = 100;
+        carta.setMinimumSize(dimension);
         this.carta.setSize(100,180);
         this.carta.setLocation(carta.getX(), carta.getY());
+        carta.setIcon(imRedimensionada);
     }
 
     /**

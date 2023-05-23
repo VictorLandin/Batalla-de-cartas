@@ -4,7 +4,11 @@
  */
 package Model;
 
+import UI.*;
 import BDacceso.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,38 +23,15 @@ public class Juego {
     private int dinero;
     private int puntuacion;
     private int dificultad;
+    private Eventos[] eventList = new Eventos[10];
+    private Mapa mapa = new Mapa();
     Jugador jugador;
+    UI interfaz;
 
-    public Juego() {
+    public Juego(UI interfaz) {
         crearJugador();
+        this.interfaz = interfaz;
     }
-
-    public void mostrarMazo(JPanel panelMazo) {
-    ArrayList<Cartas> mazo = jugador.getMazo();
-    
-    int columnas = 5;
-    int x = 10; // Posición inicial x
-    int y = 10; // Posición inicial y
-    
-    for (int i = 0; i < mazo.size(); i++) {
-        Cartas carta = mazo.get(i);
-        JLabel labelCarta = carta.getCarta();
-        
-        // Establece la posición (x, y) del JLabel
-        labelCarta.setLocation(x, y);
-        labelCarta.setSize(100, 180);
-        panelMazo.add(labelCarta); // Añade el label al panel del mazo
-        
-        carta.refrescar();
-        panelMazo.setComponentZOrder(labelCarta, 0);
-        // Calcula la posición (x, y) del siguiente JLabel
-        x += labelCarta.getWidth()+ 10; // Añade 10 píxeles de separación horizontal
-        if ((i + 1) % columnas == 0) {
-            x = 10; // Reinicia la posición x al inicio de la fila
-            y += labelCarta.getHeight() + 10; // Añade 10 píxeles de separación vertical
-        }
-    }
-}
 
 
     public void iniciarBatalla(Enemigos enemigo) {
@@ -82,5 +63,29 @@ public class Juego {
 
     private void restarDinero(int precio) {
 
+    }
+
+    public void empezar(JPanel mapaPanel) {
+        generarEventos();
+        Eventos mostrarEvento;
+        do{
+        mostrarEvento = mapa.mostrarEventos(eventList);
+        if (mostrarEvento != null){
+            JLabel cartaLabel = mostrarEvento.crearLabel();
+            interfaz.pintarEn(cartaLabel);
+            mostrarEvento.actualizar();
+        }
+        }while (mostrarEvento != null);
+    }
+
+    private void generarEventos() {
+        for (int i = 0; i < eventList.length-1; i++) {
+            Eventos evento = new Eventos();
+            evento.generarTipo();
+            eventList[i] = evento;
+        }
+        Eventos boss = new Eventos();
+        boss.generarJefe();
+        eventList[9] = boss;
     }
 }
