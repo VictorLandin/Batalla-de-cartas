@@ -6,13 +6,10 @@ package UI;
 
 import Model.*;
 import SonidoEImagen.Imagen;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /**
  *
@@ -22,17 +19,14 @@ public class UI extends javax.swing.JFrame {
 
     public void pintarEn(JLabel label) {
         mapaPanel.add(label);
-        mapaPanel.setComponentZOrder(label, 1);
+        mapaPanel.setComponentZOrder(label, 0);
         label.setOpaque(true);
 
         mapaPanel.repaint();
     }
 
-    private Timer temporizador;
     private Juego partida;
     UI interfaz;
-    private int sec = 0;
-    private int minute;
 
     /**
      * Creates new form UI
@@ -47,6 +41,7 @@ public class UI extends javax.swing.JFrame {
         batallaPanel.setVisible(false);
         eventoPanel.setVisible(false);
         Iniciar.setVisible(true);
+        Iniciar.setBackground(new Color(0,0,0,0));
         Iniciar.repaint();
     }
 
@@ -94,7 +89,6 @@ public class UI extends javax.swing.JFrame {
         menuLabel = new javax.swing.JLabel();
         mapaPanel = new javax.swing.JPanel();
         mapaLabel = new javax.swing.JLabel();
-        timerP = new javax.swing.JLabel();
         eventoPanel = new javax.swing.JPanel();
         eventoLabel = new javax.swing.JLabel();
         batallaPanel = new javax.swing.JPanel();
@@ -137,24 +131,19 @@ public class UI extends javax.swing.JFrame {
         mapaPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         mapaPanel.setPreferredSize(new java.awt.Dimension(800, 600));
 
-        timerP.setText("00:00");
+        mapaLabel.setPreferredSize(new java.awt.Dimension(800, 600));
 
         javax.swing.GroupLayout mapaPanelLayout = new javax.swing.GroupLayout(mapaPanel);
         mapaPanel.setLayout(mapaPanelLayout);
         mapaPanelLayout.setHorizontalGroup(
             mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mapaPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(timerP, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mapaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(mapaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 89, Short.MAX_VALUE))
         );
         mapaPanelLayout.setVerticalGroup(
             mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mapaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(mapaPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(timerP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(mapaLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(mapaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -198,15 +187,7 @@ public class UI extends javax.swing.JFrame {
         menuPanel.setVisible(false);
         mapaPanel.setVisible(true);
         partida.empezar(mapaPanel);
-        temporizador = new Timer(100, (ActionEvent e) -> {
-            //accion cuando llega a cero
-            sec++;
-            if (sec == 60) {
-                minute++;
-                sec = 0;
-            }
-            timerP.setText(minute+"m"+sec+"s");
-        });
+        
     }//GEN-LAST:event_IniciarActionPerformed
 
     /**
@@ -290,6 +271,5 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JPanel mapaPanel;
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
-    private javax.swing.JLabel timerP;
     // End of variables declaration//GEN-END:variables
 }

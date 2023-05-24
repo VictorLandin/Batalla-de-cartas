@@ -14,20 +14,24 @@ public class Mapa {
     private int contadorPartida = -1;
     
     public Eventos mostrarEventos(Eventos[] eventList) {
-            contadorPartida++;
         if (contadorPartida < 10) {
         if (slotIzq == null) {
+            contadorPartida++;
             slotIzq = eventList[contadorPartida];
-            slotIzq.setX(200);
+            slotIzq.setX(75);       
+            return eventList[contadorPartida];
         } else if (slotCen == null) {
+            contadorPartida++;
             slotCen = eventList[contadorPartida];
-            slotCen.setX(400);
+            slotCen.setX(325);        
+            return eventList[contadorPartida];
         } else if (slotDer == null) {
+            contadorPartida++;
             slotDer = eventList[contadorPartida];
-            slotDer.setX(600);
-        }
-        
-        return eventList[contadorPartida];
+            slotDer.setX(575);
+            return eventList[contadorPartida];
+        } 
+
         }
         return null;
     }

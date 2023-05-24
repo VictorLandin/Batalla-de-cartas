@@ -6,9 +6,6 @@ package Model;
 
 import UI.*;
 import BDacceso.*;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +15,8 @@ import javax.swing.JPanel;
  * @author a22victorlr
  */
 public class Juego {
+
+    
 
     private String situacion;
     private int dinero;
@@ -67,15 +66,7 @@ public class Juego {
 
     public void empezar(JPanel mapaPanel) {
         generarEventos();
-        Eventos mostrarEvento;
-        do{
-        mostrarEvento = mapa.mostrarEventos(eventList);
-        if (mostrarEvento != null){
-            JLabel cartaLabel = mostrarEvento.crearLabel();
-            interfaz.pintarEn(cartaLabel);
-            mostrarEvento.actualizar();
-        }
-        }while (mostrarEvento != null);
+        mostrarEventos();
     }
 
     private void generarEventos() {
@@ -87,5 +78,24 @@ public class Juego {
         Eventos boss = new Eventos();
         boss.generarJefe();
         eventList[9] = boss;
+    }
+    
+    public void mostrarEventos(){
+        Eventos mostrarEvento;
+        do{
+        mostrarEvento = mapa.mostrarEventos(eventList);
+        if (mostrarEvento != null){
+            JLabel cartaLabel = mostrarEvento.crearLabel(this);
+            interfaz.pintarEn(cartaLabel);
+        }
+        }while (mostrarEvento != null);
+    }
+    
+    public void iniciar(String tipo, String posicion) {
+        mostrarEventos();
+    }
+
+    public void actualizar() {
+        interfaz.repaint();
     }
 }

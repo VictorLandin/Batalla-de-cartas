@@ -4,8 +4,12 @@
  */
 package Model;
 
+import SonidoEImagen.Imagen;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
@@ -14,9 +18,11 @@ import javax.swing.JLabel;
  */
 public class Eventos {
     private String tipo;
+    private String posicion;
     private int x;
     private final int y = 100;
-    private JLabel lblCarta;
+    private JLabel lblEvento;
+    private Juego juego;
 
     public String getTipo() {
         return tipo;
@@ -58,22 +64,29 @@ public class Eventos {
             System.out.println(tipo);
     }
 
-    public JLabel crearLabel() {
-        this.lblCarta = new JLabel("");
-        this.lblCarta.setOpaque(true);
-        this.lblCarta.setSize(100,120);
-        this.lblCarta.setLocation(x, y);
-        this.lblCarta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        return lblCarta;
-    }
+    public JLabel crearLabel(Juego juego) {
+        this.juego = juego;
+        this.lblEvento = new JLabel("");
+        this.lblEvento.setOpaque(true);
+        this.lblEvento.setSize(150,192);
+        this.lblEvento.setLocation(x, y);
+        this.lblEvento.setBackground(new Color(0,0,0,0));
+        String lblDirec = SonidoEImagen.Imagen.getImageLink(tipo);
+        ImageIcon menu = new ImageIcon(lblDirec);
+        ImageIcon menuRedimen = Imagen.redimensionarimagen(menu, lblEvento.getWidth(), lblEvento.getHeight());
+        this.lblEvento.setIcon(menuRedimen);
+             // Agregar el "click listener" al JLabel
+        this.lblEvento.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Acciones a realizar cuando se hace clic en el JLabel
+                System.out.println("Se hizo clic en " + tipo);
+                lblEvento.getParent().remove(lblEvento);
+                juego.actualizar();
+                juego.iniciar(tipo, posicion);
+            }
+        });
+        return lblEvento;
+    }}
 
-    void actualizar() {
-        this.lblCarta = new JLabel("");
-        this.lblCarta.setOpaque(true);
-        this.lblCarta.setSize(100,120);
-        this.lblCarta.setLocation(x, y);
-        this.lblCarta.setBorder(BorderFactory.createLineBorder(Color.BLACK));    
-    }
     
-    
-}
