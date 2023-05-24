@@ -8,7 +8,6 @@ import SonidoEImagen.Imagen;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -34,6 +33,10 @@ public class Eventos {
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public void setPosicion(String posicion) {
+        this.posicion = posicion;
     }
 
     public int getY() {

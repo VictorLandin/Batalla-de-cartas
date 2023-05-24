@@ -92,10 +92,18 @@ public class Juego {
     }
     
     public void iniciar(String tipo, String posicion) {
-        mostrarEventos();
+        mostrarEventoEspecifico(posicion);
     }
 
     public void actualizar() {
         interfaz.repaint();
+    }
+
+    private void mostrarEventoEspecifico(String posicion) {
+        Eventos evento = mapa.mostrarEventoEspecifico(eventList, posicion);
+        if (evento != null){
+            JLabel cartaLabel = evento.crearLabel(this);
+            interfaz.pintarEn(cartaLabel);
+        }
     }
 }
