@@ -38,7 +38,7 @@ public class Mapa {
     }
 
         public Eventos mostrarEventoEspecifico(Eventos[] eventList, String posicion) {
-        if (contadorPartida < 9) {
+        if (contadorPartida < eventList.length-1) {
         if (null != posicion) switch (posicion) {
                 case "Izq" -> {
                     contadorPartida++;

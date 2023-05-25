@@ -46,7 +46,7 @@ public class Eventos {
     public void generarTipo(){
         int tipoInt;
         tipoInt = (int) (Math.random() * 100+1);
-        if (tipoInt < 21){
+        if (tipoInt < 31){
             tipo = "EventoCofre";
         } else if (tipoInt < 81){
             tipo = "EventoBatalla";

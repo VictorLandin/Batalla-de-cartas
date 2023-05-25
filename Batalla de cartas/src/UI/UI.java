@@ -7,6 +7,8 @@ package UI;
 import Model.*;
 import SonidoEImagen.Imagen;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,6 +19,9 @@ import javax.swing.JPanel;
  */
 public class UI extends javax.swing.JFrame {
 
+    private Juego partida;
+    UI interfaz;
+    
     public void pintarEn(JLabel label) {
         mapaPanel.add(label);
         mapaPanel.setComponentZOrder(label, 0);
@@ -24,9 +29,37 @@ public class UI extends javax.swing.JFrame {
 
         mapaPanel.repaint();
     }
+    
+    public void eventoCofre(Cartas carta) {
+        JLabel cartaLbl = carta.getCarta();
+        mapaPanel.setVisible(false);
+        eventoPanel.setVisible(true);
+        
+        eventoPanel.add(cartaLbl);
+        eventoPanel.setComponentZOrder(cartaLbl, 0);
+        cartaLbl.setLocation(325, 200);
+        cartaLbl.setOpaque(true);
+        cartaLbl.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Acciones a realizar cuando se hace clic en el JLabel
+                System.out.println("Se hizo clic en el tesoro");
+                partida.addCarta(carta);
+                eventoPanel.remove(cartaLbl);
+                eventoPanel.repaint();
+                interfaz.irAMapa(eventoPanel);
+            }
+        });
 
-    private Juego partida;
-    UI interfaz;
+        eventoPanel.repaint();
+    }
+    
+    private void irAMapa(JPanel panelAnt) {
+        panelAnt.setVisible(false);
+        mapaPanel.setVisible(true);
+    }
+
+
 
     /**
      * Creates new form UI
@@ -139,11 +172,11 @@ public class UI extends javax.swing.JFrame {
             mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mapaPanelLayout.createSequentialGroup()
                 .addComponent(mapaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 89, Short.MAX_VALUE))
+                .addGap(0, 153, Short.MAX_VALUE))
         );
         mapaPanelLayout.setVerticalGroup(
             mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mapaLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mapaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(mapaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -260,7 +293,7 @@ public class UI extends javax.swing.JFrame {
     public JPanel getMenuPanel() {
         return menuPanel;
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Iniciar;
     private javax.swing.JLabel batallaLabel;
@@ -272,4 +305,5 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
     // End of variables declaration//GEN-END:variables
+
 }

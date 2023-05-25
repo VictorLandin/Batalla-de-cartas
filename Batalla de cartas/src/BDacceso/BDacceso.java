@@ -18,6 +18,8 @@ import java.util.ArrayList;
  * @author a22victorlr
  */
 public class BDacceso {
+
+    
     private Connection conexion;
     private String url = "jdbc:mysql://localhost/batalla";
     private String usuario = "root";
@@ -92,10 +94,30 @@ public class BDacceso {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 regeneracionEnergia = rs.getInt("regeneracionEnergia");
-            }
+            } 
         } catch (SQLException e) {
         }
         return regeneracionEnergia;
     }
+    public Cartas generarCartaAleatoria(int dificultad) {
+        Cartas cartaCreada = null;
+        int id = (int) (Math.random() * 2+1);
 
+        try {
+            PreparedStatement ps = conexion.prepareStatement("SELECT * FROM carta WHERE idCarta = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+                int idCarta = rs.getInt("idCarta");
+                int ataque = rs.getInt("ataque");
+                int defensa = rs.getInt("defensa");
+                int repeticiones = rs.getInt("repeticiones");
+                String imagen = rs.getString("imagen");
+                String objetivoString = rs.getString("objetivo");
+                cartaCreada = new Cartas(idCarta, ataque, defensa, repeticiones, objetivoString, imagen);
+            
+        } catch (SQLException e) {
+        }
+        return cartaCreada;
+    }
     }

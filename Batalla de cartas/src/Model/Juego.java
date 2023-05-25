@@ -21,35 +21,31 @@ public class Juego {
     private String situacion;
     private int dinero;
     private int puntuacion;
-    private int dificultad;
+    private int dificultad = 0;
     private Eventos[] eventList = new Eventos[10];
     private Mapa mapa = new Mapa();
-    Jugador jugador;
-    UI interfaz;
+    private Jugador jugador;
+    private BDacceso bdAcceso;
+    private UI interfaz;
 
     public Juego(UI interfaz) {
         crearJugador();
         this.interfaz = interfaz;
-    }
-
-
-    public void iniciarBatalla(Enemigos enemigo) {
-        // cambiar la situación del juego a "batalla"
-        // iniciar la batalla contra el enemigo
+        
     }
 
     public void comprarEnTienda(Tienda tienda, Jugador jugador, Cartas carta) {
         int precio = tienda.getPrecio(carta);
         if (dinero >= precio) {
             this.restarDinero(precio);
-            jugador.agregarCartaAlMazo(carta);
+            jugador.meterCartaEnMazo(carta);
             tienda.quitarCartaDelInventario(carta);
         }
     }
 
     public void crearJugador() {
         int idJugador = 0; // id del jugador, en este caso se asume que es 0
-        BDacceso bdAcceso = new BDacceso(); // instancia la clase de acceso a la base de datos
+        bdAcceso = new BDacceso(); // instancia la clase de acceso a la base de datos
         ArrayList<Cartas> cartasJugador = bdAcceso.obtenerCartasJugador(idJugador); // obtiene las cartas del jugador de la tabla n:m
         int vidaJugador = bdAcceso.obtenerVidaJugador(idJugador); // obtiene la vida del jugador de la tabla de jugadores
         int energiaJugador = bdAcceso.obtenerEnergiaJugador(idJugador); // obtiene la energía del jugador de la tabla de jugadores
@@ -77,7 +73,7 @@ public class Juego {
         }
         Eventos boss = new Eventos();
         boss.generarJefe();
-        eventList[9] = boss;
+        eventList[eventList.length-1] = boss;
     }
     
     public void mostrarEventos(){
@@ -92,6 +88,12 @@ public class Juego {
     }
     
     public void iniciar(String tipo, String posicion) {
+        dificultad++;
+        switch (tipo){
+            case "EventoCofre" -> this.cofre();
+            case "EventoTienda" -> this.tienda();
+            default -> this.tipoBatalla(tipo);
+        }
         mostrarEventoEspecifico(posicion);
     }
 
@@ -105,5 +107,36 @@ public class Juego {
             JLabel cartaLabel = evento.crearLabel(this);
             interfaz.pintarEn(cartaLabel);
         }
+    }
+
+    private void cofre() {
+        Cartas carta;
+        carta = bdAcceso.generarCartaAleatoria(dificultad);
+        
+        interfaz.eventoCofre(carta);
+    }
+
+    private void tienda() {
+        
+    }
+
+    private void tipoBatalla(String tipo) {
+        if ("eventoBatalla".equals(tipo)){
+            this.empezarBatalla();
+        } else {
+            this.empezarBoss(tipo);
+        }
+    }
+
+    private void empezarBatalla() {
+        
+    }
+
+    private void empezarBoss(String tipo) {
+        
+    }
+
+    public void addCarta(Cartas carta) {
+        jugador.meterCartaEnMazo(carta);
     }
 }

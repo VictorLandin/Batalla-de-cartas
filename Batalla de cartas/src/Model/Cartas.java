@@ -16,31 +16,21 @@ import javax.swing.JLabel;
  */
 public class Cartas {
 
-    private int ID_carta, ataque, defensa, coste, repeticiones;
-    private String Efecto, imagen, objetivo;
+    private int ID_carta, ataque, defensa, repeticiones, Efecto;
+    private String imagen, objetivo;
     JLabel carta;
     ImageIcon imRedimensionada;
 
     public Cartas(int idCarta, int ataque, int defensa, int repeticiones, String objetivoString, String imagen) {
-        carta = new JLabel();
+        
         this.ID_carta = idCarta;
         this.ataque = ataque;
         this.defensa = defensa;
         this.objetivo = objetivoString;
-        this.coste = 0;
-        this.Efecto = null;
+        this.Efecto = 0;
         this.imagen = imagen;
-        carta.setSize(100, 180);
-        Dimension dimension = new Dimension();
-        dimension.height = 180;
-        dimension.width = 100;
-        carta.setMinimumSize(dimension);
-        ImageIcon im = new ImageIcon(imagen);
-        imRedimensionada = Imagen.redimensionarimagen(im, carta.getWidth(), carta.getHeight());
-        carta.setOpaque(true);
-        carta.setIcon(imRedimensionada);
-        carta.setVisible(true);
-        carta.setText("  ");
+        this.crearLabel();
+        
     }
 
     public int getRepeticiones() {
@@ -92,20 +82,13 @@ public class Cartas {
         return defensa;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getCoste() {
-        return coste;
+
+    public int getEfecto() {
+        return Efecto;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getEfecto() {
-        return Efecto;
+    public void setEfecto(int Efecto) {
+        this.Efecto = Efecto;
     }
 
     /**
@@ -115,5 +98,23 @@ public class Cartas {
     public String getImagen() {
         return imagen;
     }
+
+    private void crearLabel() {
+        carta = new JLabel();
+        carta.setSize(150,192);
+        
+        
+        
+        String imagenDir = SonidoEImagen.Imagen.getImageLink(imagen);
+        ImageIcon im = new ImageIcon(imagenDir);
+        imRedimensionada = Imagen.redimensionarimagen(im, carta.getWidth(), carta.getHeight());
+        carta.setIcon(imRedimensionada);
+        
+        
+        
+        carta.setOpaque(true);
+        carta.setVisible(true);
+        carta.setBackground(new Color(0,0,0,0));
+        carta.setText("  ");    }
 
 }
