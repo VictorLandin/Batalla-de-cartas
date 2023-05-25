@@ -20,6 +20,8 @@ public class Juego {
 
     private String situacion;
     private int dinero;
+    private int vidaActual;
+    private int vidaMax;
     private int puntuacion;
     private int dificultad = 0;
     private Eventos[] eventList = new Eventos[10];
@@ -34,13 +36,16 @@ public class Juego {
         
     }
 
-    public void comprarEnTienda(Tienda tienda, Jugador jugador, Cartas carta) {
-        int precio = tienda.getPrecio(carta);
+    public int getVidaMax() {
+        return vidaMax;
+    }
+
+    public boolean comprarEnTienda(int precio) {
         if (dinero >= precio) {
-            this.restarDinero(precio);
-            jugador.meterCartaEnMazo(carta);
-            tienda.quitarCartaDelInventario(carta);
+            dinero -= precio;
+            return true;
         }
+        return false;
     }
 
     public void crearJugador() {
@@ -56,13 +61,14 @@ public class Juego {
         this.jugador = player;
     }
 
-    private void restarDinero(int precio) {
-
-    }
 
     public void empezar(JPanel mapaPanel) {
         generarEventos();
         mostrarEventos();
+        vidaActual = jugador.getVidaBase();
+        vidaMax = vidaActual;
+        dinero=20;
+        generarDatosPrimera(mapaPanel);
     }
 
     private void generarEventos() {
@@ -98,6 +104,7 @@ public class Juego {
     }
 
     public void actualizar() {
+        interfaz.refrescar(dinero,vidaActual);
         interfaz.repaint();
     }
 
@@ -117,7 +124,13 @@ public class Juego {
     }
 
     private void tienda() {
+        Cartas[] carta = new Cartas[3];
+        carta[0] = bdAcceso.generarCartaAleatoria(dificultad);
+        carta[1] = bdAcceso.generarCartaAleatoria(dificultad);
+        carta[2] = bdAcceso.generarCartaAleatoria(dificultad);
         
+        
+        interfaz.eventoTienda(carta);
     }
 
     private void tipoBatalla(String tipo) {
@@ -129,7 +142,10 @@ public class Juego {
     }
 
     private void empezarBatalla() {
+        Enemigos Enemigo;
+        Enemigo = bdAcceso.generarEnemigoAleatoria(dificultad);
         
+        interfaz.batalla(Enemigo);
     }
 
     private void empezarBoss(String tipo) {
@@ -138,5 +154,11 @@ public class Juego {
 
     public void addCarta(Cartas carta) {
         jugador.meterCartaEnMazo(carta);
+    }
+
+    public void generarDatosPrimera(JPanel Panel) {
+        interfaz.mostrarVida(vidaActual, Panel);
+        interfaz.mostrarDinero(dinero, Panel);
+        actualizar();
     }
 }

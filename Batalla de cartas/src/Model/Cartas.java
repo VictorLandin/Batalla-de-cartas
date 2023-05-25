@@ -14,22 +14,23 @@ import javax.swing.JLabel;
  *
  * @author a22victorlr
  */
-public class Cartas {
+public final class Cartas {
 
     private int ID_carta, ataque, defensa, repeticiones, Efecto;
+    private int precio;
     private String imagen, objetivo;
     JLabel carta;
     ImageIcon imRedimensionada;
 
-    public Cartas(int idCarta, int ataque, int defensa, int repeticiones, String objetivoString, String imagen) {
+    public Cartas(int idCarta, int ataque, int defensa, int repeticiones, String imagen) {
         
         this.ID_carta = idCarta;
         this.ataque = ataque;
         this.defensa = defensa;
-        this.objetivo = objetivoString;
-        this.Efecto = 0;
+        this.repeticiones = repeticiones;
         this.imagen = imagen;
         this.crearLabel();
+        precio = this.calcularPrecio();
         
     }
 
@@ -58,6 +59,10 @@ public class Cartas {
         carta.setIcon(imRedimensionada);
     }
 
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
+    }
+
     /**
      *
      * @return
@@ -74,6 +79,10 @@ public class Cartas {
         return ataque;
     }
 
+    public int getPrecio() {
+        return precio;
+    }
+    
     /**
      *
      * @return
@@ -116,5 +125,13 @@ public class Cartas {
         carta.setVisible(true);
         carta.setBackground(new Color(0,0,0,0));
         carta.setText("  ");    }
+
+    public int calcularPrecio() {
+        if (Efecto == 0){
+            return ((ataque + defensa) * repeticiones) + 10;
+        } else {
+            return ((ataque + defensa) * repeticiones) + 15;
+        }
+    }
 
 }

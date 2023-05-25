@@ -14,7 +14,8 @@ public class Jugador extends Personajes {
     
     private int energia;
     private int regeneracionEnergia;
-    private int vida;
+    private int vidaBase;
+    private final ArrayList<Cartas> mazo;
     /**
      *
      * @param vida
@@ -23,11 +24,11 @@ public class Jugador extends Personajes {
      * @param regeneracionEnergia
      */
     public Jugador(int vida, ArrayList<Cartas> mazo, int energia, int regeneracionEnergia) {
-        super(vida, mazo, energia, regeneracionEnergia);
+        super(vida, energia, regeneracionEnergia);
         this.energia = energia;
         this.mazo = mazo;
         this.regeneracionEnergia = regeneracionEnergia;
-        this.vida = vida;
+        this.vidaBase = vida;
     }
     
     /**
@@ -44,6 +45,10 @@ public class Jugador extends Personajes {
      */
     public void quitarCartaDeMazo(Cartas carta) {
         mazo.remove(carta);
+    }
+
+    public int getVidaBase() {
+        return vidaBase;
     }
 
     ArrayList<Cartas> getMazo() {

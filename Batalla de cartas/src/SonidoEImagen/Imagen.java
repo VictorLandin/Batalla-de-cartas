@@ -5,6 +5,10 @@
 package SonidoEImagen;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
@@ -28,11 +32,12 @@ public class Imagen {
       ImageIcon imagenNueva = new ImageIcon(imagenRedimensionada);
          return imagenNueva;
   }
+
   /* Para añadir una imagen a un objeto se haría asi
   
-    String imageName = "mi_imagen";
-    String imageLink = ImageUtils.getImageLink(imageName);
-    label.setIcon(new ImageIcon(imageLink));
+    ImageIcon miImagen = new ImageIcon("directorio");
+    ImageIcon miImagenRedimensionada = Imagen.redimensionarimagen(miImagen, tamañoX, tamañoY);
+    this.menuLabel.setIcon(miImagenRedimensionada);
   */
   
 }

@@ -6,12 +6,18 @@ package UI;
 
 import Model.*;
 import SonidoEImagen.Imagen;
+import SonidoEImagen.StringToIcons;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -21,6 +27,8 @@ public class UI extends javax.swing.JFrame {
 
     private Juego partida;
     UI interfaz;
+    JLabel vidaLbl;
+    JLabel dineroActLbl;
     
     public void pintarEn(JLabel label) {
         mapaPanel.add(label);
@@ -29,43 +37,175 @@ public class UI extends javax.swing.JFrame {
 
         mapaPanel.repaint();
     }
-    
+
     public void eventoCofre(Cartas carta) {
         JLabel cartaLbl = carta.getCarta();
         mapaPanel.setVisible(false);
         eventoPanel.setVisible(true);
-        
+        partida.generarDatosPrimera(eventoPanel);
+
         eventoPanel.add(cartaLbl);
         eventoPanel.setComponentZOrder(cartaLbl, 0);
         cartaLbl.setLocation(325, 200);
         cartaLbl.setOpaque(true);
+        
+        
         cartaLbl.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Acciones a realizar cuando se hace clic en el JLabel
-                System.out.println("Se hizo clic en el tesoro");
                 partida.addCarta(carta);
                 eventoPanel.remove(cartaLbl);
                 eventoPanel.repaint();
                 interfaz.irAMapa(eventoPanel);
             }
         });
-
+        
+        ArrayList<JLabel> lblsTesoro = new ArrayList<JLabel>();
+        lblsTesoro.add(cartaLbl);
+        addBotonVolver(lblsTesoro);
         eventoPanel.repaint();
     }
+
+    public void eventoTienda(Cartas[] carta) {
+        mapaPanel.setVisible(false);
+        eventoPanel.setVisible(true);
+        partida.generarDatosPrimera(eventoPanel);
+        
+        ArrayList<JLabel> lblsTienda = new ArrayList<JLabel>();
+
+        for (int i = 0; i < carta.length; i++) {
+            lblsTienda.addAll(this.cargarCartaTienda(carta[i], i));
+        }
+        
+        addBotonVolver(lblsTienda);
+
+    }
+
+    public void mostrarVida(int vidaActual, JPanel panel) {
+        String vidaString = String.valueOf(vidaActual) + "/" + String.valueOf(partida.getVidaMax());
+        int tamañoX = (vidaString.length()+1) * 16;
+        ImageIcon precioIcon;
+        precioIcon = StringToIcons.getIconRepresentation(vidaString, "v");
+        vidaLbl = new JLabel();
+        
+        vidaLbl.setSize(new Dimension(tamañoX*2, 32));
+        vidaLbl.setLocation(304, 550);
+        
+        ImageIcon precioIconRedime = Imagen.redimensionarimagen(precioIcon, tamañoX*2, 32);
+        vidaLbl.setIcon(precioIconRedime);
+        
+        panel.add(vidaLbl);
+        panel.setComponentZOrder(vidaLbl, 0);
+        
+    }
+
+    public void mostrarDinero(int dinero, JPanel panel) {
+        String dineroString = String.valueOf(dinero);
+        int tamañoX = (dineroString.length()+1) * 16;
+        ImageIcon precioIcon;
+        precioIcon = StringToIcons.getIconRepresentation(dineroString, "d");
+        dineroActLbl = new JLabel();
+        
+        dineroActLbl.setSize(new Dimension(tamañoX*2, 32));
+        dineroActLbl.setLocation(5, 5);
+        
+        ImageIcon precioIconRedime = Imagen.redimensionarimagen(precioIcon, tamañoX*2, 32);
+        dineroActLbl.setIcon(precioIconRedime);
+        
+        panel.add(dineroActLbl);
+        panel.setComponentZOrder(dineroActLbl, 0);
+        
+    }
+
+    private void addBotonVolver(ArrayList<JLabel> cartaDisp) {
+        Iterator<JLabel> it = cartaDisp.iterator();
+        JButton atrasButton = new JButton();
+        String atrasDirec = SonidoEImagen.Imagen.getImageLink("Atras");
+        atrasButton.setBounds(304, 500, 192, 56);
+        atrasButton.setBackground(new Color(0,0,0,0));
+        
+        ImageIcon atras = new ImageIcon(atrasDirec);
+        ImageIcon atrasRedimen = Imagen.redimensionarimagen(atras, Iniciar.getWidth(), Iniciar.getHeight());
+        atrasButton.setIcon(atrasRedimen);
+        
+        eventoPanel.add(atrasButton);
+        eventoPanel.setComponentZOrder(atrasButton, 0);
+        atrasButton.setOpaque(true);
+        
+        atrasButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Acciones a realizar cuando se hace clic en el boton
+                while (it.hasNext()) {
+                    JLabel cartaDisp1 = it.next();
+                    eventoPanel.remove(cartaDisp1);
+                }
+                eventoPanel.remove(atrasButton);
+                eventoPanel.repaint();
+                interfaz.irAMapa(eventoPanel);
+            }
+        });
+    }
     
+    private ArrayList<JLabel> cargarCartaTienda(Cartas carta, int i) {
+        JLabel cartaLbl = carta.getCarta();
+        int precio = carta.calcularPrecio();
+        eventoPanel.add(cartaLbl);
+        eventoPanel.setComponentZOrder(cartaLbl, 0);
+        cartaLbl.setLocation(75 + (i * 250), 200);
+        JLabel Precio = colocarPrecio(precio, cartaLbl.getX());
+        cartaLbl.setOpaque(true);
+        cartaLbl.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Acciones a realizar cuando se hace clic en el JLabel
+                if(partida.comprarEnTienda(precio)){
+                partida.addCarta(carta);
+                eventoPanel.remove(Precio);
+                eventoPanel.remove(cartaLbl);
+                eventoPanel.repaint();
+                } 
+            }
+        });
+        ArrayList<JLabel> lblsTienda = new ArrayList<JLabel>();
+        lblsTienda.add(Precio);
+        lblsTienda.add(cartaLbl);
+        return lblsTienda;
+        
+    }
+
+    private JLabel colocarPrecio(int precio, int posicion) {
+        String precioString = String.valueOf(precio);
+        int tamañoX = (precioString.length()+1) * 16;
+        int posicionX = (posicion + 75) - (tamañoX);
+        ImageIcon precioIcon;
+        precioIcon = StringToIcons.getIconRepresentation(precioString, "d");
+        JLabel dineroLbl = new JLabel();
+        dineroLbl.setSize(new Dimension(tamañoX*2, 32));
+        dineroLbl.setLocation(posicionX, 400);
+        
+        ImageIcon precioIconRedime = Imagen.redimensionarimagen(precioIcon, tamañoX*2, 32);
+        dineroLbl.setIcon(precioIconRedime);
+        
+        eventoPanel.add(dineroLbl);
+        eventoPanel.setComponentZOrder(dineroLbl, 0);
+        
+        eventoPanel.repaint();
+        return dineroLbl;
+                    
+    }
+
     private void irAMapa(JPanel panelAnt) {
         panelAnt.setVisible(false);
         mapaPanel.setVisible(true);
     }
 
-
-
     /**
      * Creates new form UI
      */
     public UI() {
-        
+
         interfaz = this;
         initComponents();
         partida = new Juego(this);
@@ -74,7 +214,7 @@ public class UI extends javax.swing.JFrame {
         batallaPanel.setVisible(false);
         eventoPanel.setVisible(false);
         Iniciar.setVisible(true);
-        Iniciar.setBackground(new Color(0,0,0,0));
+        Iniciar.setBackground(new Color(0, 0, 0, 0));
         Iniciar.repaint();
     }
 
@@ -172,7 +312,7 @@ public class UI extends javax.swing.JFrame {
             mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mapaPanelLayout.createSequentialGroup()
                 .addComponent(mapaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 153, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         mapaPanelLayout.setVerticalGroup(
             mapaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +360,7 @@ public class UI extends javax.swing.JFrame {
         menuPanel.setVisible(false);
         mapaPanel.setVisible(true);
         partida.empezar(mapaPanel);
-        
+
     }//GEN-LAST:event_IniciarActionPerformed
 
     /**
@@ -293,7 +433,7 @@ public class UI extends javax.swing.JFrame {
     public JPanel getMenuPanel() {
         return menuPanel;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Iniciar;
     private javax.swing.JLabel batallaLabel;
@@ -305,5 +445,39 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
     // End of variables declaration//GEN-END:variables
+
+    public void refrescar(int dinero, int vidaAct) {
+        String dineroString = String.valueOf(dinero);
+        int tamañoXDinero = (dineroString.length()+1) * 16;
+        ImageIcon DineroIcon;
+        DineroIcon = StringToIcons.getIconRepresentation(dineroString, "d");
+        this.remove(dineroActLbl);
+        dineroActLbl = new JLabel();
+        
+        dineroActLbl.setSize(new Dimension(tamañoXDinero*2, 32));
+        
+        ImageIcon DineroIconRedime = Imagen.redimensionarimagen(DineroIcon, tamañoXDinero*2, 32);
+        dineroActLbl.setIcon(DineroIconRedime);
+        
+        String vidaString = String.valueOf(vidaAct) + "/" + String.valueOf(partida.getVidaMax());
+        int tamañoXVida = (vidaString.length()+1) * 16;
+        ImageIcon VidaIcon;
+        VidaIcon = StringToIcons.getIconRepresentation(vidaString, "v");
+        this.remove(vidaLbl);
+        vidaLbl = new JLabel();
+        
+        vidaLbl.setSize(new Dimension(tamañoXVida*2, 32));
+        vidaLbl.setLocation(304, 550);
+        
+        ImageIcon VidaIconRedime = Imagen.redimensionarimagen(VidaIcon, tamañoXVida*2, 32);
+        vidaLbl.setIcon(VidaIconRedime);
+        
+        this.repaint();
+    }
+
+    public void batalla(Enemigos Enemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
 }

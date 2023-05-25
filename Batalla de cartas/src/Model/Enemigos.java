@@ -21,8 +21,9 @@ public class Enemigos extends Personajes{
      * @param energia
      * @param regeneracionEnergia
      */
-    public Enemigos(int vida, ArrayList<Cartas> mazo, int energia, int regeneracionEnergia) {
-        super(vida, mazo, energia, regeneracionEnergia);
+    public Enemigos(int vida, ArrayList<Accion> mazo, int energia, int regeneracionEnergia, String nombre) {
+        super(vida, energia, regeneracionEnergia);
+        this.nombre = nombre;
     }
     
     // Métodos adicionales

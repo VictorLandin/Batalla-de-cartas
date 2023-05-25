@@ -4,7 +4,6 @@
  */
 package Model;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -16,20 +15,17 @@ public class Personajes {
     /**
      *
      */
-    protected ArrayList<Cartas> mazo;
     private int energia;
     private int regeneracionEnergia;
     
     /**
      *
      * @param vida
-     * @param mazo
      * @param energia
      * @param regeneracionEnergia
      */
-    public Personajes(int vida, ArrayList<Cartas> mazo, int energia, int regeneracionEnergia) {
+    public Personajes(int vida, int energia, int regeneracionEnergia) {
         this.vida = vida;
-        this.mazo = mazo;
         this.energia = energia;
         this.regeneracionEnergia = regeneracionEnergia;
     }
