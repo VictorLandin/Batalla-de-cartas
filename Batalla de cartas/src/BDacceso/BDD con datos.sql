@@ -29,7 +29,7 @@ CREATE TABLE `accion` (
   `Repeticiones` int NOT NULL,
   PRIMARY KEY (`idCarta`),
   UNIQUE KEY `idCarta_UNIQUE` (`idCarta`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `accion` (
 
 LOCK TABLES `accion` WRITE;
 /*!40000 ALTER TABLE `accion` DISABLE KEYS */;
-INSERT INTO `accion` VALUES (1,3,0,1),(2,0,3,1);
+INSERT INTO `accion` VALUES (1,6,0,1),(2,0,4,1),(3,2,5,1),(4,7,0,2);
 /*!40000 ALTER TABLE `accion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +153,7 @@ CREATE TABLE `comportamiento` (
 
 LOCK TABLES `comportamiento` WRITE;
 /*!40000 ALTER TABLE `comportamiento` DISABLE KEYS */;
-INSERT INTO `comportamiento` VALUES (1,1,1),(1,2,2);
+INSERT INTO `comportamiento` VALUES (1,1,1),(1,2,2),(10,3,1),(10,3,2),(10,4,3);
 /*!40000 ALTER TABLE `comportamiento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,8 +236,34 @@ CREATE TABLE `personaje` (
 
 LOCK TABLES `personaje` WRITE;
 /*!40000 ALTER TABLE `personaje` DISABLE KEYS */;
-INSERT INTO `personaje` VALUES (0,20,NULL,0,0),(1,10,'Enemigos/Esqueleto',0,0);
+INSERT INTO `personaje` VALUES (0,10,NULL,0,0),(1,20,'Enemigos/Esqueleto',0,0),(10,60,'Enemigos/Boss',0,0);
 /*!40000 ALTER TABLE `personaje` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `puntuaciones`
+--
+
+DROP TABLE IF EXISTS `puntuaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `puntuaciones` (
+  `idJugadores` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `puntuacion` int NOT NULL,
+  PRIMARY KEY (`idJugadores`),
+  UNIQUE KEY `idJugadores_UNIQUE` (`idJugadores`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `puntuaciones`
+--
+
+LOCK TABLES `puntuaciones` WRITE;
+/*!40000 ALTER TABLE `puntuaciones` DISABLE KEYS */;
+INSERT INTO `puntuaciones` VALUES (1,'ax',28);
+/*!40000 ALTER TABLE `puntuaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -249,4 +275,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-26  0:24:48
+-- Dump completed on 2023-05-29  6:15:49

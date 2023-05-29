@@ -53,18 +53,10 @@ public class Eventos {
         } else if (tipoInt < 101){
             tipo = "EventoTienda";
         }
-        System.out.println(tipo);
     }
 
     public void generarJefe() {
-        int tipoInt;
-        tipoInt = (int) (Math.random() * 3+1);
-        switch (tipoInt) {
-            case 1 -> tipo = "BossCalabaza";
-            case 2 -> tipo = "BossArbol";
-            case 3 -> tipo = "BossArdilla";
-        }
-            System.out.println(tipo);
+        tipo = "Boss";
     }
 
     public JLabel crearLabel(Juego juego) {
@@ -83,7 +75,6 @@ public class Eventos {
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Acciones a realizar cuando se hace clic en el JLabel
-                System.out.println("Se hizo clic en " + tipo);
                 lblEvento.getParent().remove(lblEvento);
                 juego.actualizar();
                 juego.iniciar(tipo, posicion);

@@ -10,7 +10,7 @@ package Model;
  * @author a22victorlr
  */
 public class Personajes {
-    private int vida;
+    int vida;
 
     /**
      *
@@ -30,44 +30,12 @@ public class Personajes {
         this.regeneracionEnergia = regeneracionEnergia;
     }
     
-    // Métodos para manipular los atributos
 
-    /**
-     *
-     * @param cantidad
-     */
-    public void reducirVida(int cantidad) {
-        vida -= cantidad;
+    public int getVida() {
+        return vida;
     }
-    
-    /**
-     *
-     * @param cantidad
-     */
-    public void aumentarVida(int cantidad) {
-        vida += cantidad;
-    }
-    
-    /**
-     *
-     * @param cantidad
-     */
-    public void aumentarEnergia(int cantidad) {
-        energia += cantidad;
-    }
-    
-    /**
-     *
-     * @param cantidad
-     */
-    public void reducirEnergia(int cantidad) {
-        energia -= cantidad;
-    }
-    
-    /**
-     *
-     */
-    public void regenerarEnergia() {
-        energia += regeneracionEnergia;
+
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 }

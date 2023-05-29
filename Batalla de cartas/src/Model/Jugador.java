@@ -51,7 +51,7 @@ public class Jugador extends Personajes {
         return vidaBase;
     }
 
-    ArrayList<Cartas> getMazo() {
+    public ArrayList<Cartas> getMazo() {
         return mazo;
     }
 }

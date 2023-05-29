@@ -10,4 +10,16 @@ package Model;
  */
 public class Efectos {
     //esta clase registra que efectos has segun su ID, deversas cartas o acciones generaran efectos
+    public void addEfecto(int id){
+        String tipo = null;
+        switch (id){
+            case 1 -> tipo = "def";
+            case 2 -> tipo = "heal";
+            case 3 -> tipo = "atq";
+            case 4 -> tipo = "regen";
+        }
+    }
+
+    
+    
 }

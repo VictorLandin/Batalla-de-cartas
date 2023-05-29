@@ -7,11 +7,12 @@ package BDacceso;
 import Model.Accion;
 import Model.Cartas;
 import Model.Enemigos;
+import Model.ExceptionLogger;
+import Model.puntuaciones;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class BDacceso {
         try {
             conexion = DriverManager.getConnection(url, usuario, contrasena);
         } catch (SQLException e) {
+                ExceptionLogger.logException(e);
         }
     }
 
@@ -46,11 +48,26 @@ public class BDacceso {
                 int ataque = rs.getInt("ataque");
                 int defensa = rs.getInt("defensa");
                 int repeticiones = rs.getInt("repeticiones");
-                String imagen = rs.getString("imagen");;
-                Cartas carta = new Cartas(idCarta, ataque, defensa, repeticiones, imagen);
+                String imagen = rs.getString("imagen");
+                int Efecto = 0;
+            
+            try {
+                PreparedStatement pa = conexion.prepareStatement("SELECT * FROM cata_tiene_efecto WHERE idCarta = ?");
+                pa.setInt(1, idCarta);
+                ResultSet ra = pa.executeQuery();
+               
+                if (ra.next()) {
+                    Efecto = rs.getInt("idEfecto");
+                }
+            } catch (SQLException ex) {
+                ExceptionLogger.logException(ex);
+            }
+            
+                Cartas carta = new Cartas(idCarta, ataque, defensa, repeticiones, imagen, Efecto);
                 cartasJugador.add(carta);
             }
         } catch (SQLException e) {
+                ExceptionLogger.logException(e);
         }
         return cartasJugador;
     }
@@ -66,6 +83,7 @@ public class BDacceso {
                 vida = rs.getInt("vida");
             }
         } catch (SQLException e) {
+                ExceptionLogger.logException(e);
         }
         return vida;
     }
@@ -81,6 +99,7 @@ public class BDacceso {
                 energia = rs.getInt("energia");
             }
         } catch (SQLException e) {
+                ExceptionLogger.logException(e);
         }
         return energia;
     }
@@ -96,6 +115,8 @@ public class BDacceso {
                 regeneracionEnergia = rs.getInt("regeneracionEnergia");
             }
         } catch (SQLException e) {
+            
+                ExceptionLogger.logException(e);
         }
         return regeneracionEnergia;
     }
@@ -114,9 +135,26 @@ public class BDacceso {
             int defensa = rs.getInt("defensa");
             int repeticiones = rs.getInt("repeticiones");
             String imagen = rs.getString("imagen");
-            cartaCreada = new Cartas(idCarta, ataque, defensa, repeticiones, imagen);
+            int Efecto = 0;
+            
+            try {
+                PreparedStatement pa = conexion.prepareStatement("SELECT * FROM cata_tiene_efecto WHERE idCarta = ?");
+                pa.setInt(1, idCarta);
+                ResultSet ra = pa.executeQuery();
+               
+                if (ra.next()) {
+                    Efecto = rs.getInt("idEfecto");
+                }
+            } catch (SQLException ex) {
+                
+                ExceptionLogger.logException(ex);
+            }
+            
+            cartaCreada = new Cartas(idCarta, ataque, defensa, repeticiones, imagen, Efecto);
 
         } catch (SQLException e) {
+            
+                ExceptionLogger.logException(e);
         }
         return cartaCreada;
     }
@@ -126,7 +164,7 @@ public class BDacceso {
         ArrayList<Accion> accionesEnemigo = new ArrayList<>();
         int idEnemigo = 1;
         try {
-            PreparedStatement ps = conexion.prepareStatement("SELECT * FROM carta INNER JOIN comportamiento ON comportamiento.idaccion = accion.idaccion WHERE comportamiento.idPersonaje = ?");
+            PreparedStatement ps = conexion.prepareStatement("SELECT * FROM accion INNER JOIN comportamiento ON comportamiento.idaccion = accion.idCarta WHERE comportamiento.idPersonaje = ?");
             ps.setInt(1, idEnemigo);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -138,6 +176,8 @@ public class BDacceso {
                 accionesEnemigo.add(accion);
             }
         } catch (SQLException e) {
+                ExceptionLogger.logException(e);
+        }
 
             int vida = 0;
             String nombre = null;
@@ -149,12 +189,84 @@ public class BDacceso {
                     vida = rs.getInt("vida");
                     nombre = rs.getString("imagen");
                 }
-            } catch (SQLException ex) {
+            } catch (SQLException e) {
+                ExceptionLogger.logException(e);
             }
 
             enemigo = new Enemigos(vida, accionesEnemigo, 0, 0, nombre);
 
-        }
         return enemigo;
+    }
+
+    public Enemigos generarJefe(int id, int dificultad) {
+        Enemigos enemigo = null;
+        ArrayList<Accion> accionesEnemigo = new ArrayList<>();
+        try {
+            PreparedStatement ps = conexion.prepareStatement("SELECT * FROM accion INNER JOIN comportamiento ON comportamiento.idaccion = accion.idCarta WHERE comportamiento.idPersonaje = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int idCarta = rs.getInt("idCarta");
+                int ataque = rs.getInt("ataque");
+                int defensa = rs.getInt("defensa");
+                int repeticiones = rs.getInt("repeticiones");
+                Accion accion = new Accion(idCarta, ataque, defensa, repeticiones);
+                accionesEnemigo.add(accion);
+            }
+        } catch (SQLException e) {
+            
+                ExceptionLogger.logException(e);
+        }
+
+            int vida = 0;
+            String nombre = null;
+            try {
+                PreparedStatement ps = conexion.prepareStatement("SELECT * FROM personaje WHERE idPersonaje = ?");
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    vida = rs.getInt("vida");
+                    nombre = rs.getString("imagen");
+                }
+            } catch (SQLException e) {
+                ExceptionLogger.logException(e);
+            }
+
+            enemigo = new Enemigos(vida, accionesEnemigo, 0, 0, nombre);
+
+        return enemigo;
+    
+    }
+
+    public void addPuntuacion(int puntuacion, String nombre) {
+        try {
+            PreparedStatement stmt = conexion.prepareStatement("INSERT INTO puntuacion(nombre, puntuacion) VALUES (?, ?)");
+            stmt.setString(1, nombre);
+            stmt.setString(2, Integer.toString(puntuacion));
+
+            stmt.executeUpdate();
+            } catch (SQLException ex) {
+                
+                ExceptionLogger.logException(ex);
+            }
+    }
+    
+    public puntuaciones sacarPuntuacion(int id) {
+        String nombre;
+        String puntuacion;
+        try {
+            PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM puntuaciones WHERE idJugadores = ?");
+            stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                nombre = rs.getString("nombre");
+                puntuacion = rs.getString("puntuacion");
+                puntuaciones puntuacionJugador = new puntuaciones(nombre, puntuacion);
+                return puntuacionJugador;
+                }
+            } catch (SQLException e) {
+                ExceptionLogger.logException(e);
+            }
+        return null;
     }
 }

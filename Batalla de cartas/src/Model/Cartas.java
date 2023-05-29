@@ -19,16 +19,17 @@ public final class Cartas {
     private int ID_carta, ataque, defensa, repeticiones, Efecto;
     private int precio;
     private String imagen, objetivo;
-    JLabel carta;
-    ImageIcon imRedimensionada;
+    private JLabel carta;
+    private ImageIcon imRedimensionada;
 
-    public Cartas(int idCarta, int ataque, int defensa, int repeticiones, String imagen) {
+    public Cartas(int idCarta, int ataque, int defensa, int repeticiones, String imagen, int Efecto) {
         
         this.ID_carta = idCarta;
         this.ataque = ataque;
         this.defensa = defensa;
         this.repeticiones = repeticiones;
         this.imagen = imagen;
+        this.Efecto = Efecto;
         this.crearLabel();
         precio = this.calcularPrecio();
         
@@ -128,9 +129,9 @@ public final class Cartas {
 
     public int calcularPrecio() {
         if (Efecto == 0){
-            return ((ataque + defensa) * repeticiones) + 10;
+            return ((2+ataque + defensa) * repeticiones) + 10;
         } else {
-            return ((ataque + defensa) * repeticiones) + 15;
+            return ((2+ataque + defensa) * repeticiones) + 15;
         }
     }
 
